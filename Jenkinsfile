@@ -16,7 +16,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    def imageTag = "${env.IMAGE_NAME}:${env.BUILD_NUMBER}"
+                    def imageTag = "${env.IMAGE_NAME}"
                     echo "Construyendo la imagen Docker ${imageTag}"
                     sh "docker build -t ${imageTag} ."
                 }
