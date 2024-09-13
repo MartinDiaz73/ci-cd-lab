@@ -1,24 +1,18 @@
 pipeline {
     agent any
-
     environment {
         REPO_URL = 'https://github.com/MartinDiaz73/ci-cd-lab.git'
         IMAGE_NAME = 'my-flask-app'
     }
-
     stages {
         stage('Checkout') {
             steps {
                 script {
                     echo "Clonando el repositorio"
-                    checkout([$class: 'GitSCM',
-                              branches: [[name: '*/main']],
-                              userRemoteConfigs: [[url: "${env.REPO_URL}"]]
-                    ])
+                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: "${env.REPO_URL}"]]])
                 }
             }
         }
-
         stage('Build') {
             steps {
                 script {
@@ -28,7 +22,6 @@ pipeline {
                 }
             }
         }
-
         stage('Run') {
             steps {
                 script {
@@ -45,7 +38,6 @@ pipeline {
             }
         }
     }
-
     post {
         always {
             script {
@@ -53,4 +45,9 @@ pipeline {
                 if (runningContainer) {
                     echo "El contenedor ${env.IMAGE_NAME} está en ejecución."
                 } else {
-                    echo "El contenedor ${env.IMAGE_NAME} no está en ejecución.
+                    echo "El contenedor ${env.IMAGE_NAME} no está en ejecución."
+                }
+            }
+        }
+    }
+}
